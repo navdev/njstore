@@ -8,6 +8,9 @@ var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 var routes = require("./routes");
 
+var path = require('path');
+global.appRoot = path.resolve(__dirname);
+
 //Create App
 var app=express();
 
@@ -26,7 +29,7 @@ app.use(express.static(path.join(__dirname, "public"))); //Set static files path
 app.use("/", routes);
 
 app.get('*', function(req, res, next){
-    res.sendfile(__dirname + "/public/" + req.url + ".html");
+    res.status(404).send("Requested page was not found.");
 });
 
 http.createServer(app).listen(3000, function() {

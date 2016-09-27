@@ -3,33 +3,26 @@
     app.config(function($routeProvider, $locationProvider) {
         $routeProvider
             .when("/", {
-                templateUrl : "partials/main",
-                controller : "defaultController"
+                templateUrl : "templates/home",
+                controller : "homeController"
             })
-            .when("/red", {
-                templateUrl : "partials/red",
-                controller : "redController"
-            })
-            .when("/green", {
-                templateUrl : "partials/green",
-                controller : "greenController"
+            .when("/single", {
+                templateUrl : "templates/single",
+                controller : "singleController"
             })
             .otherwise("/");
-
+/*
             $locationProvider.html5Mode({
                 enabled: true,
                 requireBase: false
             });
+            */
     });
 
-    app.controller("defaultController", function ($scope) {
+    app.controller("homeController", function ($scope) {
         $scope.msg = "I love white";
     });
-    app.controller("redController", function ($scope) {
-        alert("dddd");
+    app.controller("singleController", function ($scope) {
         $scope.msg = "I love red";
-    });
-    app.controller("greenController", function ($scope) {
-        $scope.msg = "I love green";
     });
 })();

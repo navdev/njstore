@@ -30,4 +30,9 @@ router.get("/partials/:name", function(req, res, next){
     res.render("partials/" + name);
 });
 
+router.get("/templates/:name", function(req, res, next){
+    var name = req.params.name;
+    res.sendFile(appRoot + "/views/ng-templates/" + name + ".html");
+});
+
 module.exports = router;
