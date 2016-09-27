@@ -1,0 +1,12 @@
+extends layout
+
+block content
+    .reg-form
+        .reg
+            form(name="test-form", method="post")
+                ul
+                    li.text-info Category Name
+                    li 
+                        input(type="text", name="categoryName")
+                div.actions
+                    input(type="submit", value="add")
