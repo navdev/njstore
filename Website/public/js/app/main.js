@@ -23,6 +23,13 @@
                 templateUrl : "templates/userprofile",
                 controller : "singleController"
             })
+            .when("/register", {
+                templateUrl : "templates/register",
+                controller : "signupController"
+            })
+            .when("/success-signup", {
+                templateUrl : "templates/success-signup",
+            })
             .otherwise("/");
 /*
             $locationProvider.html5Mode({
@@ -93,6 +100,14 @@
 
     app.controller("checkoutController", function ($scope, $http) {
         
+    });
+
+    app.controller("signupController", function ($scope, $http, $location) {
+        $scope.submitForm = function(){
+            $location.path("success-signup")
+        }
+
+        $location
     });
 
 })();

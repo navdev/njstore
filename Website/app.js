@@ -6,11 +6,16 @@ var path = require("path");
 var logger = require("morgan");
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
-var routes = require("./routes");
 var apiRoutes = require("./routes/api");
-
+var session = require("express-session");
+var passport = require("passport");
+var flash = require("connect-flash");
 var path = require('path');
+var routes = require("./routes")(passport);
+require("./config/passport")(passport);
+
 global.appRoot = path.resolve(__dirname);
+//global.passport = passport;
 
 //Create App
 var app = express();
@@ -25,6 +30,19 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, "public"))); //Set static files path
+
+
+//Setup passport
+
+app.use(session({ 
+    secret: "digital 1000 shopping app",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true }
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
 //Routes
 app.use("/", routes);
