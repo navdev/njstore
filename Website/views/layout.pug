@@ -56,7 +56,7 @@ html(lang="en", ng-app="app")
               .clearfix  
           .clearfix  
     // header-section-ends
-    .banner-top
+    .banner-top(ng-controller="chromeController")
       .container
         nav.navbar.navbar-default(role='navigation')
           .navbar-header
@@ -73,145 +73,9 @@ html(lang="en", ng-app="app")
           // /.navbar-header
           #bs-example-navbar-collapse-1.collapse.navbar-collapse
             ul.nav.navbar-nav
-              li
-                a(href='index.html') Home
-              li.dropdown
-                a.dropdown-toggle(href='#', data-toggle='dropdown')
-                  | Men 
-                  b.caret
-                ul.dropdown-menu.multi-column.columns-3
-                  .row
-                    .col-sm-4
-                      ul.multi-column-dropdown
-                        h6 NEW IN
-                        li
-                          a(href='products.html') New In Clothing
-                        li
-                          a(href='products.html') New In Bags
-                        li
-                          a(href='products.html') New In Shoes
-                        li
-                          a(href='products.html') New In Watches
-                        li
-                          a(href='products.html') New In Grooming
-                    .col-sm-4
-                      ul.multi-column-dropdown
-                        h6 CLOTHING
-                        li
-                          a(href='products.html') Polos & Tees
-                        li
-                          a(href='products.html') Casual Shirts
-                        li
-                          a(href='products.html') Casual Trousers
-                        li
-                          a(href='products.html') Jeans
-                        li
-                          a(href='products.html') Shorts & 3/4th
-                        li
-                          a(href='products.html') Formal Shirts
-                        li
-                          a(href='products.html') Formal Trousers
-                        li
-                          a(href='products.html') Suits & Blazers
-                        li
-                          a(href='products.html') Track Wear
-                        li
-                          a(href='products.html') Inner Wear
-                    .col-sm-4
-                      ul.multi-column-dropdown
-                        h6 WATCHES
-                        li
-                          a(href='products.html') Analog
-                        li
-                          a(href='products.html') Chronograph
-                        li
-                          a(href='products.html') Digital
-                        li
-                          a(href='products.html') Watch Cases
-                    .clearfix
-              li.dropdown
-                a.dropdown-toggle(href='#', data-toggle='dropdown')
-                  | women 
-                  b.caret
-                ul.dropdown-menu.multi-column.columns-3
-                  .row
-                    .col-sm-4
-                      ul.multi-column-dropdown
-                        h6 NEW IN
-                        li
-                          a(href='products.html') New In Clothing
-                        li
-                          a(href='products.html') New In Bags
-                        li
-                          a(href='products.html') New In Shoes
-                        li
-                          a(href='products.html') New In Watches
-                        li
-                          a(href='products.html') New In Beauty
-                    .col-sm-4
-                      ul.multi-column-dropdown
-                        h6 CLOTHING
-                        li
-                          a(href='products.html') Polos & Tees
-                        li
-                          a(href='products.html') Casual Shirts
-                        li
-                          a(href='products.html') Casual Trousers
-                        li
-                          a(href='products.html') Jeans
-                        li
-                          a(href='products.html') Shorts & 3/4th
-                        li
-                          a(href='products.html') Formal Shirts
-                        li
-                          a(href='products.html') Formal Trousers
-                        li
-                          a(href='products.html') Suits & Blazers
-                        li
-                          a(href='products.html') Track Wear
-                        li
-                          a(href='products.html') Inner Wear
-                    .col-sm-4
-                      ul.multi-column-dropdown
-                        h6 WATCHES
-                        li
-                          a(href='products.html') Analog
-                        li
-                          a(href='products.html') Chronograph
-                        li
-                          a(href='products.html') Digital
-                        li
-                          a(href='products.html') Watch Cases
-                    .clearfix
-              li.dropdown
-                a.dropdown-toggle(href='#', data-toggle='dropdown')
-                  | kids 
-                  b.caret
-                ul.dropdown-menu.multi-column.columns-2
-                  .row
-                    .col-sm-6
-                      ul.multi-column-dropdown
-                        h6 NEW IN
-                        li
-                          a(href='products.html') New In Boys Clothing
-                        li
-                          a(href='products.html') New In Girls Clothing
-                        li
-                          a(href='products.html') New In Boys Shoes
-                        li
-                          a(href='products.html') New In Girls Shoes
-                    .col-sm-6
-                      ul.multi-column-dropdown
-                        h6 ACCESSORIES
-                        li
-                          a(href='products.html') Bags
-                        li
-                          a(href='products.html') Watches
-                        li
-                          a(href='products.html') Sun Glasses
-                        li
-                          a(href='products.html') Jewellery
-                    .clearfix
+              li(ng-repeat="m in menuItems")
+                a(ng-href="#/catalog/{{m._id}}") {{m.categoryName}}
+            .clearfix
           // /.navbar-collapse
         // /.navbar
     block body

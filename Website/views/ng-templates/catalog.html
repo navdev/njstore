@@ -1,0 +1,31 @@
+    <!-- content-section-starts -->
+    <div ng-controller="catalogController" class="container">
+        <div class="products-page">
+            <div class="products">
+                <div class="product-listy">
+                    <h2>Our Products</h2>
+                    <ul class="product-list">
+                        <li ng-repeat="c in catalogs"><a ng-href="#/catalog/{{c._id}}">{{c.categoryName}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="new-product">
+                <div class="products-grid">
+                    <header>
+                        <h3 class="head text-center">{{catalog.categoryName}}</h3>
+                    </header>
+                    <div ng-repeat="p in products" class="col-md-4 product simpleCart_shelfItem text-center">
+                        <a ng-href="#/single/{{p._id}}"><img ng-src="images/{{p.imageSource}}" alt="" /></a>
+                        <div class="mask">
+                            <a ng-href="#/single/{{p._id}}">Quick View</a>
+                        </div>
+                        <a class="product_name" ng-href="#/single/{{p._id}}">{{p.productName}}</a>
+                        <p><a class="item_add" href="#"><i></i> <span class="item_price">$329</span></a></p>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>

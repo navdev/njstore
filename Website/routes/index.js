@@ -11,11 +11,6 @@ router.get("/testpage", function(req, res, next) {
     res.render("testpage", {title: "test form"});
 });
 
-router.get("/servicedemo", function(req, res, next) {
-    res.json({title: "test form"});
-});
-
-
 router.post("/testpage", function(req, res, next) {
     var pc = new productCategory(req.body.categoryName);
     console.log(pc);

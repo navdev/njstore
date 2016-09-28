@@ -1,4 +1,5 @@
-var productCategory = function(categoryName){
+var productCategory = function(categoryName, categoryId){
+  this.categoryId = categoryId;
   this.categoryName = categoryName;
 }
 

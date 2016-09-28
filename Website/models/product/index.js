@@ -1,6 +1,6 @@
 var product = function(productName){
   this.categoryId = "";
-  this.productName = "";
+  this.productName = productName;
   this.productType = "";
   this.description = "";
   this.price = "";

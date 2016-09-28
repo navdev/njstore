@@ -7,12 +7,13 @@ var logger = require("morgan");
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 var routes = require("./routes");
+var apiRoutes = require("./routes/api");
 
 var path = require('path');
 global.appRoot = path.resolve(__dirname);
 
 //Create App
-var app=express();
+var app = express();
 
 //Configure View Engine
 app.set("views", path.join(__dirname, "views")); //Set view path
@@ -27,6 +28,8 @@ app.use(express.static(path.join(__dirname, "public"))); //Set static files path
 
 //Routes
 app.use("/", routes);
+
+app.use("/api", apiRoutes);
 
 app.get('*', function(req, res, next){
     res.status(404).send("Requested page was not found.");

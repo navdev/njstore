@@ -1,58 +1,28 @@
     <!-- content-section-starts -->
-    <div class="container">
+    <div ng-controller="singleController" class="container">
         <div class="products-page">
             <div class="products">
                 <div class="product-listy">
-                    <h2>our Products</h2>
+                    <h2>Our Products</h2>
                     <ul class="product-list">
-                        <li><a href="">T-shirts</a></li>
-                        <li><a href="">pants</a></li>
-                        <li><a href="">Dress</a></li>
-                        <li><a href="">Shorts</a></li>
-                        <li><a href="#">Shirts</a></li>
+                        <li ng-repeat="c in catalogs"><a ng-href="#/catalog/{{c._id}}">{{c.categoryName}}</a></li>
                     </ul>
                 </div>
             </div>
             <div class="new-product">
                 <div class="col-md-5 zoom-grid">
-                    <div class="thumb-image"> <img src="images/si.jpg" data-imagezoom="true" class="img-responsive" alt="" /> </div>
+                    <div class="thumb-image"> <img ng-src="images/{{product.imageSource}}" data-imagezoom="true" class="img-responsive" alt="" /> </div>
                 </div>
                 <div class="col-md-7 dress-info">
                     <div class="dress-name">
-                        <h3>LOREM IPSUM DRESS</h3>
-                        <span>$459.00</span>
+                        <h3>{{product.productName}}</h3>
+                        <span>Rs.{{product.price}}</span>
                         <div class="clearfix"></div>
-                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo</p>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever</p>
+                        <p>{{product.description}}</p>
                     </div>
                     <div class="span span1">
-                        <p class="left">FABRIC ORIGIN</p>
-                        <p class="right">Japan</p>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="span span2">
-                        <p class="left">MADE IN</p>
-                        <p class="right">China</p>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="span span3">
-                        <p class="left">COLOR</p>
-                        <p class="right">White</p>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="span span4">
-                        <p class="left">SIZE</p>
-                        <p class="right">
-                            <span class="selection-box">
-                                <select class="domains valid" name="domains">
-                                    <option>M</option>
-                                    <option>L</option>
-                                    <option>XL</option>
-                                    <option>FS</option>
-                                    <option>S</option>
-                                </select>
-                            </span>
-                        </p>
+                        <p class="left">PRODUCT TYPE</p>
+                        <p class="right">{{product.productType}}</p>
                         <div class="clearfix"></div>
                     </div>
                     <div class="purchase">
