@@ -1,5 +1,5 @@
 var productCategory = function(categoryName, categoryId){
-  this.categoryId = categoryId;
+  this._id = categoryId;
   this.categoryName = categoryName;
 }
 

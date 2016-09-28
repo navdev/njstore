@@ -15,6 +15,10 @@
                 templateUrl : "templates/catalog",
                 controller : "catalogController"
             })
+            .when("/checkout", {
+                templateUrl : "templates/checkout",
+                controller : "checkoutController"
+            })
             .when("/userprofile", {
                 templateUrl : "templates/userprofile",
                 controller : "singleController"
