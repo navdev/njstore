@@ -61,21 +61,29 @@
     app.controller("catalogController", function ($scope, $http, $routeParams) {
         var catalogId = $routeParams.id;
 
-        $http.get(apiUrl + "catalog/" + catalogId).then(function(result){
-            console.log(result.data);
-            if(result.data.length > 0)
-                $scope.catalog = result.data[0];
-        });
-
         $http.get(apiUrl + "catalogs").then(function(result){
             console.log(result.data);
             $scope.catalogs = result.data;
         });
 
-        $http.get(apiUrl + "productsbycategory/" + catalogId).then(function(result){
-            console.log(result.data);
-            $scope.products = result.data;
-        });
+        if(catalogId === "all"){
+            $scope.catalog = { categoryName: "All Products" };
+            $http.get(apiUrl + "products").then(function(result){
+                console.log(result.data);
+                $scope.products = result.data;
+            });
+        } else {
+            $http.get(apiUrl + "catalog/" + catalogId).then(function(result){
+                console.log(result.data);
+                if(result.data.length > 0)
+                    $scope.catalog = result.data[0];
+            });
+
+            $http.get(apiUrl + "productsbycategory/" + catalogId).then(function(result){
+                console.log(result.data);
+                $scope.products = result.data;
+            });
+        }
 
     });
 
