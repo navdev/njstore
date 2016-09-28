@@ -1,7 +1,7 @@
 var mongoClient = require("mongodb").MongoClient;
 var assert = require("assert");
 
-var connString = "mongodb://localhost:27017/sampledb";
+var connString = "mongodb://localhost:27017/estoredb";
 
 function findDoc(collectionName, filter, callback){
   mongoClient.connect(connString, function (error, db) {

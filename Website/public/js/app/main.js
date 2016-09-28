@@ -10,6 +10,10 @@
                 templateUrl : "templates/single",
                 controller : "singleController"
             })
+            .when("/userprofile", {
+                templateUrl : "templates/userprofile",
+                controller : "singleController"
+            })
             .otherwise("/");
 /*
             $locationProvider.html5Mode({
