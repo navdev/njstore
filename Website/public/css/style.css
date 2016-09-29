@@ -46,6 +46,9 @@ ul{
 label{
 	margin:0;
 }
+.item_add {
+	cursor: pointer;
+}
 /*-----start-header----*/
 .header-top-strip{
 	padding:8px 0 14px 0;

@@ -71,7 +71,7 @@
                     </div>
                     <div class="shipping-text">
                         <h3>Free Shipping</h3>
-                        <p>on orders over $ 199</p>
+                        <p>on orders over Rs 1099</p>
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -91,7 +91,7 @@
                         <a ng-href="#/single/{{p._id}}">Quick View</a>
                     </div>
                     <a class="product_name" ng-href="#/single/{{p._id}}">{{p.productName}}</a>
-                    <p><a class="item_add" href="javascript:;"><i></i> <span class="item_price">Rs.{{p.price}}</span></a></p>
+                    <p><a class="item_add" ng-click="addToCart(p)"><i></i> <span class="item_price">Rs.{{p.price}}</span></a></p>
                 </div>
                 <div class="clearfix"></div>
             </div>

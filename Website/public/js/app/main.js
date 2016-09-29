@@ -1,6 +1,40 @@
 (function(){
     var apiUrl = "/api/";
     var app = angular.module("app", ["ngRoute"]);
+
+    var Cart = function(){
+        this.items = [];
+        
+        this.add = function(value){
+            this.items.push(value);
+        }
+        
+        this.remove = function(value){
+            var i = array.indexOf(value);
+            if(i != -1) {
+                array.splice(i, 1);
+            }
+        }
+        
+        this.save = function(){
+
+        }
+
+        this.empty = function(){
+
+        }
+
+        this.getCount = function(){
+            return this.items.length;
+        }
+
+        this.getTotalPrice = function(){
+            
+        }
+    };
+
+    var cart = new Cart();
+
     app.config(function($routeProvider, $locationProvider, $httpProvider) {
         $routeProvider
             .when("/", {
@@ -69,11 +103,22 @@
         });
     });
 
+    app.controller("headerController", function ($scope, $http) {
+        $scope.getItemsinCart = function(){
+            return cart.getCount();
+        }
+    });
+
     app.controller("homeController", function ($scope, $http) {
         $http.get(apiUrl + "products").then(function(result){
             console.log(result.data);
             $scope.products = result.data;
         });
+
+        $scope.addToCart = function(product){
+            console.log(product);
+            cart.add(product);
+        }
     });
 
     app.controller("singleController", function ($scope, $http, $routeParams) {
