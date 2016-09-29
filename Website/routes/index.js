@@ -26,12 +26,29 @@ function routeConfig(passport){
         res.render("login", {title: "Online Shopping", message: "My Message"});
     });
 
+    router.post("/login", function(req, res, next){
+        passport.authenticate("local-login", function(err, user, info){
+            console.log(user);
+            if (err)
+                return next(err);
+            if (!user) 
+                return res.status(401).send({"ok": false});
+            req.logIn(user, function(err) {
+                if (err)
+                    return res.status(401).send({"ok": false}); 
+
+                return res.send({"ok": true});
+            });
+        })(req, res, next);
+    });
+
+/*
     router.post("/login", passport.authenticate("local-login", {
         successRedirect: "/account",
         failureRedirect: "/login",
         failureFlash: true
     }));
-
+*/
     router.get("/register", function(req, res, next) {
         res.render("register", {title: "Online Shopping", message: "My Message"});
     });

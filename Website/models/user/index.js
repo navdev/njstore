@@ -1,5 +1,5 @@
-var user = function(userName){
-  this.userName = userName;
+var user = function(username){
+  this.username = username;
   this.password = "";
   this.email = "";
   this.firstName = "";

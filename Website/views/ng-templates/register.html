@@ -5,31 +5,31 @@
                 <div class="reg-form">
                     <div class="reg">
                         <p>Welcome, please enter the following details to continue.</p>
-                        <p>If you have previously registered with us, <a href="#">click here</a></p>
+                        <p>If you have previously registered with us, <a href="#/login">click here</a></p>
                         <form ng-controller="signupController" ng-submit="submitForm()">
                             <ul>
                                 <li class="text-info">First Name: </li>
-                                <li><input type="text" value=""></li>
+                                <li><input type="text" ng-model="model.firstName" value=""></li>
                             </ul>
                             <ul>
                                 <li class="text-info">Last Name: </li>
-                                <li><input type="text" value=""></li>
+                                <li><input type="text" ng-model="model.lastName" value=""></li>
                             </ul>
                             <ul>
                                 <li class="text-info">Email: </li>
-                                <li><input type="text" value=""></li>
+                                <li><input type="text" ng-model="model.email" value=""></li>
                             </ul>
                             <ul>
                                 <li class="text-info">Password: </li>
-                                <li><input type="password" value=""></li>
+                                <li><input type="password" ng-model="model.password" value=""></li>
                             </ul>
                             <ul>
                                 <li class="text-info">Re-enter Password:</li>
-                                <li><input type="password" value=""></li>
+                                <li><input type="password" ng-model="model.confirmPassword" value=""></li>
                             </ul>
                             <ul>
                                 <li class="text-info">Mobile Number:</li>
-                                <li><input type="text" value=""></li>
+                                <li><input type="text" ng-model="model.phone" value=""></li>
                             </ul>
                             <input type="submit" value="REGISTER NOW">
                             <p class="click">By clicking this button, you are agree to my  <a href="#">Policy Terms and Conditions.</a></p>
