@@ -21,7 +21,7 @@
         }
 
         this.empty = function(){
-
+            this.items = [];
         }
 
         this.getCount = function(){
@@ -29,7 +29,11 @@
         }
 
         this.getTotalPrice = function(){
-            
+            var totalPrice = 0;
+            angular.forEach(this.items, function(value, key){
+                totalPrice += value.price
+            });
+            return totalPrice;
         }
     };
 
@@ -75,6 +79,9 @@
                 templateUrl : "templates/account",
                 controller : "accountController"
             })
+            .when("/aboutus", {
+                templateUrl : "templates/aboutus"
+            })
             .otherwise({ redirectTo: '/' });
             /*
             $locationProvider.html5Mode({
@@ -107,6 +114,13 @@
         $scope.getItemsinCart = function(){
             return cart.getCount();
         }
+        $scope.getTotalPrice = function(){
+            return cart.getTotalPrice();
+        }
+        
+        $scope.emptyCart = function(){
+            cart.empty();
+        }
     });
 
     app.controller("homeController", function ($scope, $http) {
@@ -134,6 +148,11 @@
             if(result.data.length > 0)
                 $scope.product = result.data[0];
         });
+
+        $scope.addToCart = function(product){
+            console.log(product);
+            cart.add(product);
+        }
     });
 
     app.controller("catalogController", function ($scope, $http, $routeParams) {
@@ -163,10 +182,25 @@
             });
         }
 
+        $scope.addToCart = function(product){
+            console.log(product);
+            cart.add(product);
+        }
+
     });
 
     app.controller("checkoutController", function ($scope, $http) {
-        
+        $scope.items = cart.items;
+
+        $scope.getItemsinCart = function(){
+            return cart.getCount();
+        }
+        $scope.getTotalPrice = function(){
+            return cart.getTotalPrice();
+        }
+        $scope.removeItem = function(item){
+
+        }
     });
 
     app.controller("signupController", function ($scope, $http, $location) {

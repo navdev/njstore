@@ -45,13 +45,13 @@ html(lang="en", ng-app="app")
             .cart.box_1
               a(href='#/checkout')
                 h3
-                  span.simpleCart_total  Rs 0.00 
+                  span.simpleCart_total  Rs. {{getTotalPrice()}} 
                   |  (
                   span#simpleCart_quantity.simpleCart_quantity  {{getItemsinCart()}} 
                   | )
                   img(src='images/bag.png', alt='')
               p
-                a.simpleCart_empty(href='javascript:;') Empty cart
+                a.cart_empty(ng-click="emptyCart()") Empty cart
               .clearfix  
           .clearfix  
     // header-section-ends
@@ -87,82 +87,29 @@ html(lang="en", ng-app="app")
               h4 Shop
               ul.f_nav
                 li
-                  a(href='#') new arrivals
-                li
-                  a(href='#') men
-                li
-                  a(href='#') women
-                li
-                  a(href='#') accessories
-                li
-                  a(href='#') kids
-                li
-                  a(href='#') brands
-                li
-                  a(href='#') trends
-                li
-                  a(href='#') sale
-                li
-                  a(href='#') style videos
+                  a(href='#/catalog/all') catalogs
             .col-md-3.span1_of_4
               h4 help
               ul.f_nav
                 li
-                  a(href='#') frequently asked  questions
-                li
-                  a(href='#') men
-                li
-                  a(href='#') women
-                li
-                  a(href='#') accessories
-                li
-                  a(href='#') kids
-                li
-                  a(href='#') brands
+                  a(href='#/aboutus') about us
             .col-md-3.span1_of_4
               h4 account
               ul.f_nav
                 li
-                  a(href='account.html') login
+                  a(href='#/login') login
                 li
-                  a(href='register.html') create an account
+                  a(href='#/register') create an account
                 li
-                  a(href='#') create wishlist
-                li
-                  a(href='checkout.html') my shopping bag
-                li
-                  a(href='#') brands
-                li
-                  a(href='#') create wishlist
+                  a(href='#/checkout') my shopping bag
             .col-md-3.span1_of_4
               h4 popular
               ul.f_nav
                 li
-                  a(href='#') new arrivals
-                li
-                  a(href='#') men
-                li
-                  a(href='#') women
-                li
-                  a(href='#') accessories
-                li
-                  a(href='#') kids
-                li
-                  a(href='#') brands
-                li
-                  a(href='#') trends
-                li
-                  a(href='#') sale
-                li
-                  a(href='#') style videos
-                li
-                  a(href='#') login
-                li
-                  a(href='#') brands
+                  a(href='#/catalog/all') new arrivals
             .clearfix
         .cards.text-center
           img(src='images/cards.jpg', alt='')
         .copyright.text-center
           p
-            | © 2015 Eshop. All Rights Reserved | Design by   
-            a(href='http://w3layouts.com')   W3layouts
+            | © 2016 Eshop. All Rights Reserved

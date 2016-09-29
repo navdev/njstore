@@ -46,7 +46,7 @@ ul{
 label{
 	margin:0;
 }
-.item_add {
+.item_add, .cart_empty {
 	cursor: pointer;
 }
 /*-----start-header----*/
@@ -87,7 +87,7 @@ span.glyphicon.glyphicon-user,span.glyphicon.glyphicon-lock {
 .box_1 h3 img {
 	margin-left: 3px;
 }
-a.simpleCart_empty {
+a.cart_empty {
   font-size: 14px;
   color: #FFC6CF;
 }
@@ -95,6 +95,7 @@ a.simpleCart_empty {
   margin-left: 8px;
   float: left;
 }
+
 .banner {
 	background:url("../images/banner_img.jpg") no-repeat 0px 0px;
 	background-size:cover;
@@ -104,6 +105,43 @@ a.simpleCart_empty {
 	-webkit-background-size:cover;
 	min-height:705px;
 }
+
+.banner-article {
+	background:url("../images/banner_img.jpg") no-repeat 0px 0px;
+	background-position-x: -300px;
+	background-size:cover;
+	-moz-background-size:cover;
+	-o-background-size:cover;
+	-ms-background-size:cover;
+	-webkit-background-size:cover;
+	min-height:705px;
+}
+
+.article p {
+	color: #000;
+    margin: 0 0 30px 0;
+    font-size: 14px;
+    line-height: 1.8em;
+	padding-right: 20px;
+	padding-left: 20px;
+}
+
+.article .heading {
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.article h1 {
+	font-size: 35px;
+    color: #816263;
+    font-weight: 500;
+    padding: 0;
+	padding-top: 20px;
+    padding-bottom: 18px;
+	text-align: center;
+}
+
 .logo h1 a {
     color: #000;
     text-decoration: none;
@@ -516,6 +554,8 @@ h3.head.text-center {
 }
 .products-grid img {
 	width:100%;
+	min-height: 400px;
+	max-height: 400px;
 }
 .products-grid  a {
 	display:block;
@@ -1900,7 +1940,7 @@ div#myTabContent {
 .cart-item img {
 	width: 100%;
 }
-.close1, .close2,.close3 {
+.close, .close1, .close2,.close3 {
 	background: url('../images/close_1.png') no-repeat 0px 0px;
 	cursor: pointer;
 	width: 28px;
