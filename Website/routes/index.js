@@ -76,7 +76,7 @@ function routeConfig(passport){
     });
 
     router.get("/ordersforcurrentuser", isUserLoggedIn, function(req, res){
-        var userId = req.user._id;
+        var userId = req.user._id;  
         var objId = new ObjectId(userId);
         dbhelper.find("order", {"userId": objId}, function(result){
             res.json(result);
