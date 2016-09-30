@@ -38,7 +38,7 @@ app.use(session({
     secret: "digital 1000 shopping app",
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true }
+    cookie: { maxAge: 24*60*60*1000 }
 }));
 app.use(passport.initialize());
 app.use(passport.session());

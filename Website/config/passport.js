@@ -9,6 +9,8 @@ module.exports = function(passport){
     });
 
     passport.deserializeUser(function(user, done){
+        console.log("passport deserialize");
+        console.log(user);
         done(null, user);
     });
 

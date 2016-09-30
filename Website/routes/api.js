@@ -1,7 +1,6 @@
 var express = require("express");
 var router = express.Router();
 var dbhelper = require("../helpers/dbhelper");
-var productCategory = require("../models/product-category");
 var objectId = require("mongodb").ObjectId;
 var User = require("../models/user");
 

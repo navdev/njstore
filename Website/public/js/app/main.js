@@ -1,27 +1,83 @@
 (function(){
+    var storage = localStorage;
     var apiUrl = "/api/";
-    var app = angular.module("app", ["ngRoute"]);
+    var loggedinUser = null;
+    var app = angular.module("app", ["ngRoute", "ngMessages"]);
+    var loginLink = {loginText: "Login", loginUrl: "#/login"};
+    var lastOrderId = "";
+    var compareTo = function() {
+        return {
+        require: "ngModel",
+        scope: {
+            otherModelValue: "=compareTo"
+        },
+        link: function(scope, element, attributes, ngModel) {
+
+            ngModel.$validators.compareTo = function(modelValue) {
+            return modelValue == scope.otherModelValue;
+            };
+
+            scope.$watch("otherModelValue", function() {
+            ngModel.$validate();
+            });
+        }
+        };
+    };
+
+    var CartItem = function(id, categoryId, productName, description,  price, quantity, productType, imageSource){
+        this._id = id;
+        this.categoryId = categoryId;
+        this.productName = productName;
+        this.description = description;
+        this.imageSource = imageSource;
+        this.price = price;
+        this.productType = productType;
+        this.quantity = quantity;
+    }
 
     var Cart = function(){
-        this.items = [];
+        var that = this;
+        var storage_name = "estore_cart";
+        this.items = JSON.parse(storage.getItem(storage_name)) || [];
         
         this.add = function(value){
-            this.items.push(value);
+            var qtyChanged = false;
+            angular.forEach(this.items, function(item, key){
+                if(item._id === value._id){
+                    item.quantity += 1;
+                    qtyChanged = true;
+                    that.save();
+                    return;
+                }
+            });
+
+            if(qtyChanged) { return; }
+            var item = new CartItem(value._id, value.categoryId, value.productName, value.description, value.price, 1, value.productType, value.imageSource)
+            this.items.push(item);
+            that.save();
         }
         
         this.remove = function(value){
-            var i = array.indexOf(value);
+            var iKey = -1;
+            angular.forEach(this.items, function(item, key){
+                if(item._id === value._id){
+                    iKey = key; 
+                    return;
+                }
+            });
             if(i != -1) {
-                array.splice(i, 1);
+                items.splice(iKey, 1);
+                this.save();
             }
         }
         
         this.save = function(){
-
+            storage.setItem(storage_name, JSON.stringify(this.items));
         }
 
         this.empty = function(){
             this.items = [];
+            storage.removeItem(storage_name);
         }
 
         this.getCount = function(){
@@ -31,13 +87,43 @@
         this.getTotalPrice = function(){
             var totalPrice = 0;
             angular.forEach(this.items, function(value, key){
-                totalPrice += value.price
+                totalPrice += (value.price * value.quantity)
             });
             return totalPrice;
         }
     };
 
     var cart = new Cart();
+
+        app.factory('logoutService', function($http, $location) {
+            return function(){
+                $http.get("/logout").then(function(result){
+                        console.log(result.data);
+                        loggedinUser = null;
+                        loginLink.loginText = "Login";
+                        loginLink.loginUrl ="#/login";
+                        $location.url("/");
+                });
+            }
+    });
+
+    app.directive("compareTo", compareTo);
+
+    var checkLoggedin = function($q, $timeout, $http, $location, $rootScope){  
+        var deferred = $q.defer(); 
+        $http.get('/loggedin').success(function(status){ 
+            console.log(status)
+            // Authenticated 
+            if (status) 
+                deferred.resolve(); 
+            // Not Authenticated 
+            else { 
+                $rootScope.message = 'You need to log in.'; 
+                deferred.reject(); 
+                $location.url('/login'); 
+            } }); 
+            return deferred.promise; 
+        };
 
     app.config(function($routeProvider, $locationProvider, $httpProvider) {
         $routeProvider
@@ -75,9 +161,19 @@
                 templateUrl : "templates/login",
                 controller : "loginController"
             })
+            .when("/logout", { 
+                resolve: ['logoutService', function (logoutService) {
+                    logoutService();
+                }]
+            })
             .when("/account", {
                 templateUrl : "templates/account",
-                controller : "accountController"
+                controller : "accountController",
+                resolve: { loggedin: checkLoggedin }
+            })
+            .when("/order-success", {
+                templateUrl : "templates/order-success",
+                controller : "checkoutController"
             })
             .when("/aboutus", {
                 templateUrl : "templates/aboutus"
@@ -101,7 +197,24 @@
                         return $q.reject(response); 
                 }}; 
             });
-    });
+
+ 
+            
+    }).run(['$rootScope', '$http', function($rootScope, $http){
+
+        $http.get('/loggedin').success(function(loggedin){ 
+        if (loggedin) 
+                loginLink = {loginText: "Logout", loginUrl: "#/logout"};
+        // Not Authenticated 
+        else { 
+            loginLink = {loginText: "Login", loginUrl: "#/login"};
+        } });
+
+    }]);
+    
+
+
+
 
     app.controller("chromeController", function ($scope, $http) {
         $http.get(apiUrl + "catalogs").then(function(result){
@@ -111,6 +224,13 @@
     });
 
     app.controller("headerController", function ($scope, $http) {
+
+        $scope.getLoginLinkText = function(){
+            return loginLink.loginText;
+        }
+        $scope.getLoginUrl = function(){
+            return loginLink.loginUrl;
+        }
         $scope.getItemsinCart = function(){
             return cart.getCount();
         }
@@ -189,7 +309,7 @@
 
     });
 
-    app.controller("checkoutController", function ($scope, $http) {
+    app.controller("checkoutController", function ($scope, $http, $location) {
         $scope.items = cart.items;
 
         $scope.getItemsinCart = function(){
@@ -201,11 +321,28 @@
         $scope.removeItem = function(item){
 
         }
+        $scope.placeOrder = function(){
+            var order = { items: cart.items };
+            $http.post("/submitorder", order).then(function(result){
+                console.log(result.data);
+                lastOrderId = result.data.orderId;
+                cart.empty();
+                $location.path("order-success");
+            }); 
+        }
+        $scope.hasItems = function(){
+            return cart.getCount() == 0;
+        }
+        $scope.getOrderId = function(){
+            return lastOrderId;
+        }
+
     });
 
     app.controller("signupController", function ($scope, $http, $location) {
         $scope.submitForm = function(){
             console.log($scope.model);
+            //if(!isValid) { return; }
             var signupData = { firstName: $scope.model.firstName, 
                 lastName: $scope.model.lastName, 
                 email: $scope.model.email,
@@ -219,6 +356,7 @@
     });
 
     app.controller("loginController", function ($scope, $http, $location) {
+        $scope.loginText
         $scope.submitForm = function(){
             
             var loginData = { email: $scope.email, 
@@ -227,10 +365,23 @@
             console.log(loginData);
             $http.post("/login", loginData).then(function(result){
                 console.log(result.data);
+                loggedinUser = result.data.user;
                 $location.url("/account");
+                loginLink.loginText = "Logout";
+                loginLink.loginUrl ="#/logout";
             });
         }
     });
+
+     app.controller("logoutController", function ($scope, $http, $location) {
+         $http.get("/logout").then(function(result){
+                console.log(result.data);
+                loggedinUser = null;
+                loginLink.loginText = "Login";
+                loginLink.loginUrl ="#/login";
+                $location.url("/");
+        });
+     });
 
     app.controller("accountController", function ($scope, $http, $location) {
        

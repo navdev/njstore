@@ -1,8 +1,7 @@
-var order = function(){
-  this.orderId = "";
-  this.userId = "";
-  this.orderDate = "";
-  this.totalPrice = "";
+var order = function(userId, orderDate, totalPrice){
+  this.userId = userId;
+  this.orderDate = orderDate;
+  this.totalPrice = totalPrice;
 }
 
 module.exports = order;

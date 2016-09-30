@@ -27,6 +27,18 @@ function insertDoc(collectionName, doc, callback){
   });
 }
 
+function insertDocs(collectionName, docs, callback){
+  mongoClient.connect(connString, function (error, db) {
+      assert.equal(null, error);
+      var collection = db.collection(collectionName);
+      collection.insertMany(docs, function (error, result) {
+         console.log("Number of records inserted: " + result.result.n);
+         db.close();
+         callback(result);
+      });
+  });
+}
+
 function updateDoc(collectionName, origDoc, updDoc, callback){
   mongoClient.connect(connString, function (error, db) {
       assert.equal(null, error);
@@ -54,6 +66,7 @@ function deleteDoc(collectionName, doc, callback){
 module.exports = {
   find: findDoc,
   insert: insertDoc,
+  insertMany: insertDocs,
   update: updateDoc,
   delete: deleteDoc
 };

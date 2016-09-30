@@ -10,14 +10,21 @@
                     <div class="col-md-6 login-right wow fadeInRight" data-wow-delay="0.4s">
                         <h3>REGISTERED CUSTOMERS</h3>
                         <p>If you have an account with us, please log in.</p>
-                        <form ng-controller="loginController" ng-submit="submitForm()">
+                        <form name="loginForm" ng-controller="loginController" ng-submit="loginForm.$valid && submitForm()">
                             <div>
                                 <span>Email Address<label>*</label></span>
-                                <input type="text" ng-model="email">
+                                <input type="email" name="email" ng-model="email" required>
+                                <div ng-messages="loginForm.email.$error" role="alert">
+                                    <div ng-message="required">*</div>
+                                    <div ng-message="email">*</div>
+                                </div>                                
                             </div>
                             <div>
                                 <span>Password<label>*</label></span>
-                                <input type="password" ng-model="password">
+                                <input type="password" name="password" ng-model="password" required>
+                                <div ng-messages="loginForm.password.$error" role="alert">
+                                    <div ng-message="required">*</div>
+                                </div>                                   
                             </div>
                             <a class="forgot" href="#/forgot-password">Forgot Your Password?</a>
                             <input type="submit" value="Login">

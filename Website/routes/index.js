@@ -1,11 +1,15 @@
 var express = require("express");
 var router = express.Router();
 var dbhelper = require("../helpers/dbhelper");
-var productCategory = require("../models/product-category");
+var PoductCategory = require("../models/product-category");
+var Order = require("../models/order");
+var OrderDetail = require("../models/order-details");
+var ObjectId = require("mongodb").ObjectId;
 
 function routeConfig(passport){
+
     router.get("/", function(req, res, next) {
-    res.render("index", {title: "Online Shopping", message: "My Message"});
+        res.render("index", {title: "Online Shopping", message: "My Message"});
     });
 
     router.get("/partials/:name", function(req, res, next){
@@ -33,54 +37,67 @@ function routeConfig(passport){
                 return next(err);
             if (!user) 
                 return res.status(401).send({"ok": false});
-            req.logIn(user, function(err) {
-                if (err)
+            req.login(user, function(err) {
+                if (err) { 
                     return res.status(401).send({"ok": false}); 
-
+                } 
                 return res.send({"ok": true});
             });
         })(req, res, next);
     });
 
-/*
-    router.post("/login", passport.authenticate("local-login", {
-        successRedirect: "/account",
-        failureRedirect: "/login",
-        failureFlash: true
-    }));
-*/
-    router.get("/register", function(req, res, next) {
-        res.render("register", {title: "Online Shopping", message: "My Message"});
+    router.post("/submitorder", isUserLoggedIn, function(req, res, next){
+        console.log(req.user);
+        console.log(req.body);
+        var user = req.user;
+        var cart = req.body;
+        var totalPrice = calcTotalPrice(cart);
+        var order = new Order(new ObjectId(user._id), new Date(), totalPrice);
+
+        dbhelper.insert("order", order, function(result){
+            var orderId = result.insertedId;
+            var details = [];
+            cart.items.forEach(function(value){
+                var orderDetail = new OrderDetail(new ObjectId(orderId),
+                    new ObjectId(value._id), 
+                    value.quantity, 
+                    value.price, 
+                    (value.quantity * value.price));
+                    details.push(orderDetail);
+            });
+            dbhelper.insertMany("orderDetail", details, function(result){
+                res.json({"orderId": orderId});
+            });
+        });
     });
 
-    router.post("/register", function(req, res, next){
-        res.render("sucess-register");
+
+    router.get('/loggedin', function(req, res) { 
+        res.send(req.isAuthenticated() ? true : false); 
+    });
+
+    router.get('/logout', function(req, res){
+        req.logout();
+        res.send({"ok": true});
     });
 
     return router;
 }
 
 function isUserLoggedIn(req, res, next){
-        if(req.isAuthenticated())
-            return next();
-        
-        res.redirect("/login");
+    console.log(req.isAuthenticated());
+    if(req.isAuthenticated())
+        return next();
+    
+    res.sendStatus(401);
 }
-/*
-router.get("/testpage", function(req, res, next) {
-    res.render("testpage", {title: "test form"});
-});
 
-router.post("/testpage", function(req, res, next) {
-    var pc = new productCategory(req.body.categoryName);
-    console.log(pc);
-    dbhelper.insert("productCategory", pc, function(result){
-        console.log(result);
+function calcTotalPrice(cart){
+    var totalPrice = 0;
+    cart.items.forEach(function(value){
+        totalPrice += (value.price * value.quantity);
     });
-    res.redirect("/testpage");
-});
-*/
-
-
+    return totalPrice;
+}
 
 module.exports = routeConfig;

@@ -6,33 +6,55 @@
                     <div class="reg">
                         <p>Welcome, please enter the following details to continue.</p>
                         <p>If you have previously registered with us, <a href="#/login">click here</a></p>
-                        <form ng-controller="signupController" ng-submit="submitForm()">
+                        <form name="signupForm" ng-controller="signupController" ng-submit="signupForm.$valid && submitForm()" novalidate>
                             <ul>
                                 <li class="text-info">First Name: </li>
-                                <li><input type="text" ng-model="model.firstName" value=""></li>
+                                <li><input type="text" name="firstName" ng-model="model.firstName" required>
+                                    <div ng-messages="signupForm.firstName.$error" style="color:red" role="alert">
+                                        <div ng-message="required">*</div>
+                                    </div>
+                                </li>
                             </ul>
                             <ul>
                                 <li class="text-info">Last Name: </li>
-                                <li><input type="text" ng-model="model.lastName" value=""></li>
+                                <li><input type="text" name="lastName" ng-model="model.lastName" value="" required>
+                                    <div ng-messages="signupForm.lastName.$error" role="alert">
+                                        <div ng-message="required">*</div>
+                                    </div>
+                                </li>
                             </ul>
                             <ul>
                                 <li class="text-info">Email: </li>
-                                <li><input type="text" ng-model="model.email" value=""></li>
+                                <li><input type="email" name="email" ng-model="model.email" value="" required>
+                                    <div ng-messages="signupForm.email.$error" role="alert">
+                                        <div ng-message="required">*</div>
+                                        <div ng-message="email">*</div>
+                                    </div>                                
+                                </li>
                             </ul>
                             <ul>
                                 <li class="text-info">Password: </li>
-                                <li><input type="password" ng-model="model.password" value=""></li>
+                                <li><input type="password" name="password" ng-model="model.password" value="" required>
+                                    <div ng-messages="signupForm.password.$error" role="alert">
+                                        <div ng-message="required">*</div>
+                                    </div>                                
+                                </li>
                             </ul>
                             <ul>
                                 <li class="text-info">Re-enter Password:</li>
-                                <li><input type="password" ng-model="model.confirmPassword" value=""></li>
+                                <li><input type="password" name="confirmPassword" ng-model="model.confirmPassword" value="" compare-to="model.password" required>
+                                    <div ng-messages="signupForm.confirmPassword.$error" role="alert">
+                                        <div ng-message="required">*</div>
+                                        <div ng-message="compareTo">*</div>
+                                    </div>                                
+                                </li>
                             </ul>
                             <ul>
                                 <li class="text-info">Mobile Number:</li>
-                                <li><input type="text" ng-model="model.phone" value=""></li>
+                                <li><input type="text" name="phone" ng-model="model.phone" value=""></li>
                             </ul>
                             <input type="submit" value="REGISTER NOW">
-                            <p class="click">By clicking this button, you are agree to my  <a href="#">Policy Terms and Conditions.</a></p>
+                            <p class="click">By clicking this button, you are agree to my  <a href="#/ourpolicy">Policy Terms and Conditions.</a></p>
                         </form>
                     </div>
                 </div>

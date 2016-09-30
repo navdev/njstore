@@ -273,6 +273,31 @@ ul.multi-column-dropdown h6 {
     margin: 0 0 0 100px;
 	    padding: 0;
 }
+
+/*--angularjs--*/
+.ng-active, .ng-active div, .ng-inactive, .ng-inactive div {
+	display: inline;
+	color: red;
+}
+
+
+.ng-invalid {
+    border-color: red;
+    outline-color: red;
+}
+
+.ng-valid {
+    border-color: green;
+    outline-color: green;
+}
+
+.messages {
+  font-size: smaller;
+  padding-top: 5px;
+  padding-bottom: 10px;
+  color: red;
+}
+
 /*--header--*/
 #slider2,
 #slider3 {
@@ -1537,7 +1562,7 @@ li.home a {
 	display: block;
 	text-transform: uppercase;
 }
-.login-right input[type="text"] {
+.login-right input[type="text"], .login-right input[type="email"] {
 	border: 1px solid #EEE;
 	outline-color:#CACACA;
 	width: 96%;
@@ -1711,8 +1736,8 @@ ul.women_pagenation li a:hover{
 	margin: 0 0 0px 0;
 	font-weight: bold;
 }
-.reg form input[type="text"],.reg form input[type="password"] {
-	width: 100%;
+.reg form input[type="text"],.reg form input[type="password"],.reg form input[type="email"]{
+	width: 90%;
 	padding: 8px;
 	font-size: 14px;
 	font-weight: 400;
@@ -1775,6 +1800,37 @@ p.click a:hover{
 }
 /*-- //registration-form --*/
 /*-- register-ends-here --*/
+
+/*--place order --*/
+.order {}
+.order form input[type=submit]{
+	border:none;
+	color: #ffffff;
+	padding: 9px 35px;
+	font-size: 14px;
+	cursor: pointer;
+	font-weight: 500;
+	margin: 0 0 32px 0;
+	background: #816263;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+}
+.order form input[type=submit]:disabled, .order form input[type=submit]:hover:disabled{
+	background: #ccc;
+}
+
+.order form input[type=submit]:hover {
+	background:#000;
+	transition: .5s all;
+	-webkit-transition: .5s all;
+	-o-transition: .5s all;
+	-ms-transition: .5s all;
+	-moz-transition: .5s all;
+}
+
+/*--place order ends */
+
 /*-- contact-page-starts-here --*/
 .contact {
 	padding: 60px 0;

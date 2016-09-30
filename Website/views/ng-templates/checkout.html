@@ -20,6 +20,7 @@
 					   <div class="cart-item-info">
 						<h3><a ng-href="#/single/{{p._id}}">{{p.productName}}</a></h3>
 						<ul class="qty">
+							<li><p>Quantity: {{p.quantity}}</p></li>
 							<li><p>Min. order value: 1</p></li>
 							<li><p>FREE delivery in Delhi only</p></li>
 						</ul>
@@ -32,7 +33,14 @@
 					   <div class="clearfix"></div>
 											
 				  </div>
-			 </div>
+			 </div>	
+			<!--checkout form -->
+			<div class="order">
+				<form ng-submit="placeOrder()" novalidate>
+					<input type="submit" value="PLACE ORDER" ng-disabled="hasItems()">
+				</form>
+			</div>
+			<!--checkout form -->
 			  </div>
 		</div>
 	</div>
