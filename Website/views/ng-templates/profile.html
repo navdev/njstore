@@ -1,0 +1,30 @@
+<div ng-controller="accountController" class="container">
+    <h2>Members Area</h2>
+    <div class="products-page profile">
+        <div class="products">
+            <div class="product-listy">
+                <h2>Members Menu</h2>
+                <ul class="product-list">
+                    <li><a href="#/profile">My Profile</a></li>
+                    <li><a href="#/vieworders">My Orders</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="new-product">
+            <h2>About You</h2>
+                <form ng-app="" name="myForm" ng-submit="submit()">
+
+  <table class="table">
+
+        <tr><td>First Name</td><td>{{user.firstName}}</td></tr>
+        <tr><td>First Name</td><td>{{user.lastName}}</td></tr>
+        <tr><td>Email</td><td>{{user.email}}</td></tr> 
+        <tr><td>Address</td><td>{{user.address}}</td></tr>
+        <tr><td>Phone</td><td>{{user.phone}}</td></tr>
+        <tr><td>Gender</td><td>{{user.gender}}</td></tr>
+        <tr><td>Bithday</td><td>{{user.brithday}}</td></tr>
+  </table>
+</form>
+        </div>
+    </div>
+</div>

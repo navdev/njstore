@@ -1,5 +1,26 @@
-<div class="registration-form">
-    <div class="container">
-        <h2>This is account page</h2>
+<div ng-controller="accountController" class="container">
+    <h2>Members Area</h2>
+    <div class="products-page">
+        <div class="products">
+            <div class="product-listy">
+                <h2>Members Menu</h2>
+                <ul class="product-list">
+                    <li><a href="#/profile">My Profile</a></li>
+                    <li><a href="#/vieworders">My Orders</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="new-product">
+            <div class="products-grid">
+                <header>
+                    <h3 class="head text-center">Hi, {{user.firstName + " " + user.lastName}} </h3>
+                </header>
+                <div class="article-memberhome">
+                        Welcome to completely new shopping experience with EShop.com
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>        
     </div>
 </div>

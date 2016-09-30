@@ -65,8 +65,8 @@
                     return;
                 }
             });
-            if(i != -1) {
-                items.splice(iKey, 1);
+            if(iKey != -1) {
+                this.items.splice(iKey, 1);
                 this.save();
             }
         }
@@ -171,6 +171,16 @@
                 controller : "accountController",
                 resolve: { loggedin: checkLoggedin }
             })
+            .when("/profile", {
+                templateUrl : "templates/profile",
+                controller : "accountController",
+                resolve: { loggedin: checkLoggedin }
+            })
+            .when("/vieworders", {
+                templateUrl : "templates/vieworders",
+                controller : "accountController",
+                resolve: { loggedin: checkLoggedin }
+            })
             .when("/order-success", {
                 templateUrl : "templates/order-success",
                 controller : "checkoutController"
@@ -212,9 +222,6 @@
 
     }]);
     
-
-
-
 
     app.controller("chromeController", function ($scope, $http) {
         $http.get(apiUrl + "catalogs").then(function(result){
@@ -319,7 +326,7 @@
             return cart.getTotalPrice();
         }
         $scope.removeItem = function(item){
-
+            cart.remove(item);
         }
         $scope.placeOrder = function(){
             var order = { items: cart.items };
@@ -384,7 +391,14 @@
      });
 
     app.controller("accountController", function ($scope, $http, $location) {
-       
+         
+        $http.get("/userinfo").then(function(result){
+            $scope.user = result.data;
+        });
+
+        $http.get("/ordersforcurrentuser").then(function(result){
+            $scope.orders = result.data;
+        });
     });
 
 })();

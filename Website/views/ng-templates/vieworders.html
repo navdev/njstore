@@ -1,0 +1,36 @@
+<div ng-controller="accountController" class="container">
+    <div class="products-page">
+        <div class="products">
+            <div class="product-listy">
+                <h2>Members Menu</h2>
+                <ul class="product-list">
+                    <li><a href="#/profile">My Profile</a></li>
+                    <li><a href="#/vieworders">My Orders</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="new-product">
+            <h2>Order Summary</h2>
+            <p>You can find all your orders with EShop.com here.</p>
+          <div class="bs-docs-example">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Order #</th>
+                  <th>Order Date</th>
+                  <th>Total Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="o in orders">
+                  <td>{{o._id}}</td>
+                  <td>{{o.orderDate | date:'dd/MM/yyyy'}}</td>
+                  <td>{{o.totalPrice | currency:'Rs. '}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+    </div>
+          	
+</div>

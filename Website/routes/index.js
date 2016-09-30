@@ -71,6 +71,17 @@ function routeConfig(passport){
         });
     });
 
+    router.get("/userinfo", isUserLoggedIn, function(req, res){
+        res.json(req.user);
+    });
+
+    router.get("/ordersforcurrentuser", isUserLoggedIn, function(req, res){
+        var userId = req.user._id;
+        var objId = new ObjectId(userId);
+        dbhelper.find("order", {"userId": objId}, function(result){
+            res.json(result);
+        });
+    });
 
     router.get('/loggedin', function(req, res) { 
         res.send(req.isAuthenticated() ? true : false); 
